@@ -19,7 +19,7 @@ public class DataRegController {
     public String dataregmain(Model model) {
         model.addAttribute("carListAval", carService.getAllCars());
 
-//        model.addAttribute("carListAval", carService.getAllCarsByStatus(CarStatus.AVAILABLE)
+//        model.addAttribute("carListAval", carService.getAllCarsByStatus(CarStatus.AVAILABLE));
         return "dataregmain";
     }
 

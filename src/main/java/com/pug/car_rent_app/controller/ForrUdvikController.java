@@ -1,6 +1,7 @@
 package com.pug.car_rent_app.controller;
 
 
+import com.pug.car_rent_app.model.CarStatus;
 import com.pug.car_rent_app.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,8 +21,8 @@ public class ForrUdvikController {
     @GetMapping("/forrudvik")
     public String showAvailableAndLeased(Model model){
 
-        model.addAttribute("availableCars", carService.getCarsAvailable());
-        model.addAttribute("leasedCars", carService.getCarsLeased());
+        model.addAttribute("availableCars", carService.getAllCarsByStatus(CarStatus.AVAILABLE));
+        model.addAttribute("leasedCars", carService.getAllCarsByStatus(CarStatus.LEASED));
 
         return "forrudvik/index";
 
