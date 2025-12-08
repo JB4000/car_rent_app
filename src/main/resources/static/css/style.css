@@ -46,7 +46,6 @@ body {
     font-family: var(--ba-font-family), serif;
     color: var(--ba-color-text);
     background: var(--ba-color-background-primary);
-    height: 100%;
 }
 
 
@@ -126,16 +125,10 @@ body {
     color: var(--ba-color-text);
 }
 
-html, body {
-    height: 100%;
-    margin: 0;
-}
 
+/* body for datareg pages */
 .datareg-page {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    overflow: hidden;
+    background: var(--ba-color-background-primary);
 }
 
 
@@ -158,66 +151,40 @@ html, body {
 
 /* for the whole area underneath the topbar */
 .datareg-main__layout {
+
     display: grid;
     grid-template-columns: 2fr 3fr;
     gap: var(--ba-spacing-lg);
     padding: 1.5rem 2rem 2rem;
-
-    flex: 1 1 auto;
-    min-height: 0;
-    overflow: hidden;
 }
 
-
 /* for the whole left part of the screen underneath the topbar */
-/*.datareg-main__pane-left {*/
-/*    display: flex;*/
-/*    flex-direction: column;*/
-/*    gap: var(--ba-spacing-sm);*/
-/*    justify-content: center;*/
-
-/*}*/
-
-/*!* for the whole right part of the screen underneath the topbar *!*/
-/*.datareg-main__pane-right {*/
-/*    display: flex;*/
-/*    flex-direction: column;*/
-/*    height: 100%;*/
-/*    min-height: 0;*/
-/*    gap: 0.75rem;*/
-/*}*/
-
-.datareg-main__pane-left,
-.datareg-main__pane-right {
-    min-height: 0;
-    overflow: hidden;
+.datareg-main__pane-left {
     display: flex;
     flex-direction: column;
+    gap: var(--ba-spacing-sm);
+    justify-content: center;
+
+}
+
+/* for the whole right part of the screen underneath the topbar */
+.datareg-main__pane-right {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 0;
+    gap: 0.75rem;
 }
 
 
 /* for the cards (used in the left pane) */
-/*.datareg-card {*/
-/*    background: var(--ba-color-background-cards);*/
-/*    border: 1px solid var(--ba-color-border-cards);*/
-/*    border-radius: var(--ba-radius-sm);*/
-/*    padding: var(--ba-spacing-lg) var(--ba-spacing-lg);*/
-
-/*    !* calc(var(--ba-spacing-md) * 1.25) *!*/
-/*}*/
-
 .datareg-card {
     background: var(--ba-color-background-cards);
     border: 1px solid var(--ba-color-border-cards);
     border-radius: var(--ba-radius-sm);
-    padding: var(--ba-spacing-lg);
+    padding: var(--ba-spacing-lg) var(--ba-spacing-lg);
 
-    display: flex;
-    flex-direction: column;
-
-
-    flex: 1 1 auto;
-    min-height: 0;
+    /* calc(var(--ba-spacing-md) * 1.25) */
 }
 
 /* for the title above the cards (used in the left pane) */
@@ -355,10 +322,5 @@ html, body {
     margin-left: 0.75rem;
 }
 
-.datareg-card__intro {
-    font-size: 0.9rem;
-    color: var(--ba-color-text-secondary);
-    margin-bottom: var(--ba-spacing-sm);
-}
 
 
