@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <title>ForrUdvik</title>
 
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/forrudvikMain.css}">
+
+
+
 
 </head>
 <body class="datareg-page">
@@ -21,66 +24,96 @@
             <!-- Header med titel + filter dropdown -->
             <div class="datareg-cars__header">
                 <div class="datareg-cars-header__title">Biler</div>
-
-                <div>
-                    <label for="lagerFilter">Status:</label>
-                    <select id="lagerFilter">
-                        <option value="LEDIG">Ledig</option>
-                        <option value="UDLEJET">Udlejet</option>
-                        <option value="ALLE">Alle</option>
-                    </select>
-                </div>
             </div>
 
             <!-- Scroll-liste -->
             <div class="datareg-car-list">
 
-                <!-- AVAILABLE biler -->
-                <div th:each="car : ${availableCars}" class="datareg-car-card">
-                    <div class="datareg-car-card__info">
-                        <div class="datareg-car-card__title" th:text="${car.brand} + ' ' + ${car.model}"></div>
+                <div class="datareg-car-columns">
 
-                        <div class="datareg-car-card__meta">
-                            <span th:text="'Vogn: ' + ${car.vehicleNo}"></span>
-                            <span th:text="'Pris: ' + ${car.priceExVat} + ' kr.'"></span>
-                        </div>
+                    <!-- AVAILABLE kolonne -->
+                    <div class="datareg-car-column">
+                        <h3 class="datareg-car-column__title">
+                            <span class="col-title-text">Ledige</span>
+                            <span class="count-badge" style="background: green" th:text="${availableCars.size()}"></span>
+                        </h3>
 
-                        <div class="datareg-car-card__meta datareg-car-card__meta--muted">
-                            <span th:text="'CO₂: ' + ${car.co2GramPerKm} + ' g/km'"></span>
-                        </div>
-                    </div>
+                        <div class="datareg-car-scrollbox">
 
-                    <div class="datareg-car-card__actions">
-                        <button class="car-action-btn car-action-btn--secondary">Se</button>
-                        <button class="car-action-btn car-action-btn--primary">Ledig</button>
-                    </div>
-                </div>
+                        <!-- AVAILABLE biler -->
+                        <div th:each="car : ${availableCars}" class="datareg-car-card">
+                            <div class="datareg-car-card__info">
+                                <div class="datareg-car-card__title" th:text="${car.brand + ' ' + car.model}"></div>
 
-                <!-- LEASED biler -->
-                <div th:each="car : ${leasedCars}" class="datareg-car-card">
-                    <div class="datareg-car-card__info">
-                        <div class="datareg-car-card__title" th:text="${car.brand} + ' ' + ${car.model}"></div>
+                                <div class="datareg-car-card__meta">
+                                    <span th:text="'Vogn: ' + ${car.vehicleNo}"></span>
+                                    <span th:text="'Pris: ' + ${car.priceExVat} + ' kr.'"></span>
+                                </div>
 
-                        <div class="datareg-car-card__meta">
-                            <span th:text="'Vogn: ' + ${car.vehicleNo}"></span>
-                            <span th:text="'Pris: ' + ${car.priceExVat} + ' kr.'"></span>
-                        </div>
+                                <div class="datareg-car-card__meta datareg-car-card__meta--muted">
+                                    <span th:text="'CO₂: ' + ${car.co2GramPerKm} + ' g/km'"></span>
+                                </div>
+                            </div>
 
-                        <div class="datareg-car-card__meta datareg-car-card__meta--muted">
-                            <span th:text="'CO₂: ' + ${car.co2GramPerKm} + ' g/km'"></span>
+                            <div class="datareg-car-card__actions">
+                                <button class="car-action-btn car-action-btn--secondary">Se</button>
+                            </div>
                         </div>
                     </div>
-
-                    <div class="datareg-car-card__actions">
-                        <button class="car-action-btn car-action-btn--secondary">Se</button>
-                        <button class="car-action-btn car-action-btn--primary">Udlejet</button>
                     </div>
+
+                    <!-- LEASED kolonne -->
+                    <div class="datareg-car-column">
+                        <h3 class="datareg-car-column__title">
+                            <span class="col-title-text">Udlejet</span>
+                            <span class="count-badge" th:text="${leasedCars.size()}"></span>
+                        </h3>
+
+                        <div class="datareg-car-scrollbox">
+
+                        <!-- LEASED biler -->
+                        <div th:each="car : ${leasedCars}" class="datareg-car-card">
+                            <div class="datareg-car-card__info">
+                                <div class="datareg-car-card__title" th:text="${car.brand + ' ' + car.model}"></div>
+
+                                <div class="datareg-car-card__meta">
+                                    <span th:text="'Vogn: ' + ${car.vehicleNo}"></span>
+                                    <span th:text="'Pris: ' + ${car.priceExVat} + ' kr.'"></span>
+                                </div>
+
+                                <div class="datareg-car-card__meta datareg-car-card__meta--muted">
+                                    <span th:text="'CO₂: ' + ${car.co2GramPerKm} + ' g/km'"></span>
+                                </div>
+                            </div>
+
+                            <div class="datareg-car-card__actions">
+                                <button class="car-action-btn car-action-btn--secondary">Se</button>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+
                 </div>
 
             </div>
-
         </div>
+
     </section>
+
+    <section class="datareg-main__pane-kpi">
+
+        <h1>KPI</h1>
+
+        <div class="kpi-card">
+            <h2 class="kpi-title">Dashboard</h2>
+            <div class="kpi-item">
+                <span>Total pris på leasede biler:</span>
+                <strong id="leasedTotal">0 kr.</strong>
+            </div>
+        </div>
+
+    </section>
+
 </main>
 
 </body>
