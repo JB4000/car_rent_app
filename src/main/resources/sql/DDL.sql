@@ -275,7 +275,6 @@ CREATE TABLE IF NOT EXISTS payments
 );
 
 
-
 CREATE TABLE IF NOT EXISTS transport_orders
 (
     transport_id       INT AUTO_INCREMENT PRIMARY KEY,
