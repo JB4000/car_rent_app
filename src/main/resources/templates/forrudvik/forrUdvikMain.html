@@ -114,6 +114,42 @@
 
     </section>
 
+    <section class="datareg-main__pane-right">
+
+        <h1>Reserveret</h1>
+
+        <div class="datareg-car-column">
+            <h3 class="datareg-car-column__title">
+                <span class="col-title-text">Reserveret</span>
+                <span class="count-badge" style="background: orange"
+                      th:text="${reservedCars.size()}"></span>
+            </h3>
+
+            <div class="datareg-car-scrollbox">
+                <div th:each="car : ${leasesEndingToday}" class="datareg-car-card">
+                    <div class="datareg-car-card__info">
+                        <div class="datareg-car-card__title"
+                             th:text="${car.brand + ' ' + car.model}"></div>
+
+                        <div class="datareg-car-card__meta">
+                            <span th:text="'Vogn: ' + ${car.vehicleNo}"></span>
+                            <span th:text="'Pris: ' + ${car.priceExVat} + ' kr.'"></span>
+                        </div>
+
+                        <div class="datareg-car-card__meta datareg-car-card__meta--muted">
+                            <span th:text="'CO₂: ' + ${car.co2GramPerKm} + ' g/km'"></span>
+                        </div>
+                    </div>
+
+                    <div class="datareg-car-card__actions">
+                        <button class="car-action-btn car-action-btn--secondary">Se</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
 </main>
 
 </body>
