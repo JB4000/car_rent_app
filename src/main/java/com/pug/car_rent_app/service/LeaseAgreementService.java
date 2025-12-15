@@ -92,7 +92,6 @@ public class LeaseAgreementService {
 
         int leaseId = leaseAgreementRepository.insertLeaseAgreement(leaseAgreement);
 
-
         carService.updateCarStatus(leaseCreateDto.getCarId(), CarStatus.LEASED);
 
 
