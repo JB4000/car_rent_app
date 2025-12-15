@@ -38,9 +38,12 @@ public class BusinessUserRepository {
                     c.vehicle_no AS vehicle_no,
                     c.brand      AS brand,
                     c.model      AS model
-                FROM lease_agreements la
-                JOIN cars c ON la.car_id = c.id
-                WHERE DATE(la.end_date) = CURDATE()
+              -- Kigger kun på Lease der slutter idag som ikke er returned
+              FROM lease_agreements la
+              INNER JOIN cars c ON la.car_id = c.id
+              INNER JOIN car_statuses cs ON c.status_id = cs.id
+              WHERE DATE(la.end_date) = CURDATE()
+              AND cs.status_code != 'RETURNED'
                 """;
 
         // query(...) kører SQL og bruger RowMapper til at mappe hver række til et LeaseEndingToday-objekt

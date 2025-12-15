@@ -4,58 +4,129 @@
 <head>
     <meta charset="UTF-8">
     <title>Bilabonnement – Data-Registrering Main page</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/style_adjusted.css}">
 </head>
 
-<body class="datareg-page-page">
+<style>/* Centered modern box wrapper */
+.centered-box-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh; /* full viewport height */
+    background: var(--ba-color-background-primary);
+    padding: var(--ba-spacing-lg);
+}
 
+/* The actual box */
+.centered-box {
+    background: var(--ba-color-background-cards);
+    border: 1px solid var(--ba-color-border-cards);
+    border-radius: var(--ba-radius-md);
+    padding: var(--ba-spacing-lg);
+    max-width: 500px;
+    width: 100%;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* Box header/title */
+.centered-box h1 {
+    margin-top: 0;
+    margin-bottom: var(--ba-spacing-md);
+    font-size: 1.5rem;
+    text-align: center;
+    color: var(--ba-color-primary-blue);
+}
+
+/* Inputs styling inside the box */
+.centered-box input[type="number"],
+.centered-box textarea {
+    width: 100%;
+    padding: var(--ba-spacing-sm);
+    margin-bottom: var(--ba-spacing-md);
+    border: 1px solid var(--ba-color-border-cards);
+    border-radius: var(--ba-radius-sm);
+    font-family: var(--ba-font-family);
+}
+
+/* Buttons inside the box */
+.centered-box button {
+    display: block;
+    width: 100%;
+    padding: 0.75rem;
+    border-radius: var(--ba-radius-md);
+    border: 2px solid var(--ba-color-primary-blue);
+    background: var(--ba-color-primary-blue);
+    color: var(--ba-color-background-primary);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.centered-box button:hover {
+    background: var(--ba-color-background-cards);
+    color: var(--ba-color-primary-blue);
+}
+</style>
+
+<body class="datareg-page-page">
 <header th:replace="~{/fragments/header :: header}"></header>
 
-<h1>Create Condition Report</h1>
+<div class="centered-box-wrapper">
+    <div class="centered-box">
 
-<form action="#" th:action="@{/condition_report/create}" th:object="${conditionReport}" method="post">
 
-    <input type="hidden" th:field="*{id}"/>
 
-    <p><strong>Car:</strong> [[${car.brand}]] [[${car.model}]] ([[${car.licensePlate}]])</p>
+        <h1>Tilstands Rapport</h1>
 
-    Km counter: <input type="number" th:field="*{km_counter}" /><br /><br />
+        <form action="#" th:action="@{/condition_report/create}" th:object="${conditionReport}" method="post">
 
-    <label>Motor:</label><br/>
-    <input type="radio" th:field="*{motorCheck}" value="PASSED"/> Pass
-    <input type="radio" th:field="*{motorCheck}" value="FAILED"/> Fail
-    <br/><br/>
+            <input type="hidden" th:field="*{id}"/>
 
-    <label>Brakes:</label><br/>
-    <input type="radio" th:field="*{brakesCheck}" value="PASSED"/> Pass
-    <input type="radio" th:field="*{brakesCheck}" value="FAIELD"/> Fail
-    <br/><br/>
+            <p><strong>Car:</strong> [[${car.brand}]] [[${car.model}]] ([[${car.licensePlate}]])</p>
 
-    <label>Exhaust:</label><br/>
-    <input type="radio" th:field="*{exhaustCheck}" value="PASSED"/> Pass
-    <input type="radio" th:field="*{exhaustCheck}" value="FAILED"/> Failed
-    <br/><br/>
+            Km counter: <input type="number" th:field="*{km_counter}" /><br /><br />
 
-    <label>Steering:</label><br/>
-    <input type="radio" th:field="*{steeringCheck}" value="PASSED"/> Pass
-    <input type="radio" th:field="*{steeringCheck}" value="FAILED"/> Failed
-    <br/><br/>
+            <label>Motor:</label><br/>
+            <input type="radio" th:field="*{motorCheck}" value="PASSED"/> Pass
+            <input type="radio" th:field="*{motorCheck}" value="FAILED"/> Fail
+            <br/><br/>
 
-    <label>Undercarriage:</label><br/>
-    <input type="radio" th:field="*{undercarriageCheck}" value="PASSED"/> Pass
-    <input type="radio" th:field="*{undercarriageCheck}" value="FAILED"/> Failed
-    <br/><br/>
+            <label>Brakes:</label><br/>
+            <input type="radio" th:field="*{brakesCheck}" value="PASSED"/> Pass
+            <input type="radio" th:field="*{brakesCheck}" value="FAILED"/> Fail
+            <br/><br/>
 
-    Comment: <br/>
-    <textarea th:field="*{comment}"></textarea><br /><br />
+            <label>Exhaust:</label><br/>
+            <input type="radio" th:field="*{exhaustCheck}" value="PASSED"/> Pass
+            <input type="radio" th:field="*{exhaustCheck}" value="FAILED"/> Failed
+            <br/><br/>
 
-    <input type="hidden" th:field="*{dateTimeCreated}" />
-    <input type="hidden" th:field="*{done_by_id}" />
-    <input type="hidden" th:field="*{return_id}" />
+            <label>Steering:</label><br/>
+            <input type="radio" th:field="*{steeringCheck}" value="PASSED"/> Pass
+            <input type="radio" th:field="*{steeringCheck}" value="FAILED"/> Failed
+            <br/><br/>
 
-    <button type="submit">Save Report</button>
+            <label>Undercarriage:</label><br/>
+            <input type="radio" th:field="*{undercarriageCheck}" value="PASSED"/> Pass
+            <input type="radio" th:field="*{undercarriageCheck}" value="FAILED"/> Failed
+            <br/><br/>
 
-</form>
+            Comment: <br/>
+            <textarea th:field="*{comment}"></textarea><br /><br />
+
+            <input type="hidden" th:field="*{dateTimeCreated}" />
+            <input type="hidden" th:field="*{done_by_id}" />
+            <input type="hidden" th:field="*{return_id}" />
+
+            <label>
+                <input type="checkbox" /> Bil har skader
+            </label>
+
+            <button type="submit">Save Report</button>
+
+        </form>
+    </div>
+</div>
 
 </body>
 </html>

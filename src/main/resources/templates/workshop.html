@@ -7,6 +7,21 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 
+<style>
+    .date-box {
+        display: inline-block;
+        border: 1px solid var(--ba-color-primary-blue);
+        background: transparent;
+        color: var(--ba-color-primary-blue);
+        font-size: 0.85rem;
+        font-weight: 600;
+        padding: 0.25rem 0.75rem;
+        white-space: nowrap;
+        text-align: center;
+    }
+
+
+</style>
 
 <body class="datareg-page-page">
 
@@ -74,65 +89,65 @@
     </article>
 </section>
 
-<!-- the whole right part of the screen underneath the topbar -->
-<section class="datareg-main__pane-right">
+    <!-- the whole right part of the screen underneath the topbar -->
+    <section class="datareg-main__pane-right">
 
-    <!-- container for holding scrollable list -->
-    <article class="datareg-car-list-container">
+        <!-- container for holding scrollable list -->
+        <article class="datareg-car-list-container">
 
-        <!-- separate header for the right part of the screen underneath the topbar -->
-        <header class="datareg-cars__header">
+            <!-- header for the right part -->
+            <header class="datareg-cars__header">
+                <h1 class="datareg-cars-header__title">Opkomende Biler</h1>
+            </header>
 
-            <!-- title in the header -->
-            <h1 class="datareg-cars-header__title">Opkomende Biler</h1>
+            <!-- scrollable list -->
+            <section class="datareg-car-list">
 
-            <!-- update button in the header -->
-            <form th:action="@{/workshop.html}" method="get">
-                <button type="submit" class="ba-btn--highlight">Opdater</button>
-            </form>
-        </header>
+                <!-- empty state -->
+                <p class="datareg-car-list__empty" th:if="${#lists.isEmpty(leasesEndingToday)}">
+                    Ingen biler skal afleveres i dag
+                </p>
 
-        <!-- for showing the scrollable list of cars -->
-        <section class="datareg-car-list">
+                <!-- card for each lease -->
+                <article class="datareg-car-card" th:each="lease : ${leasesEndingToday}">
 
-            <!-- if list of cars is empty -->
-            <p class="datareg-car-list__empty" th:if="${#lists.isEmpty(upcomingCars)}">
-                Der er ingen biler klar til at få lavet tilstandsrapport
-            </p>
+                    <!-- card info -->
+                    <div class="datareg-car-card__info">
 
-            <!-- card for showing a car. And the iteration of the car list -->
-            <article class="datareg-car-card"
-                     th:each="car : ${upcomingCars}">
+                        <!-- First line: brand and model -->
+                        <div class="datareg-car-card__title" th:text="${lease.brand + ' ' + lease.model}">
+                            Brand: % Model: %
+                        </div>
 
-                <!-- the cards info about the car -->
-                <div class="datareg-car-card__info">
+                        <!-- Second line: vehicle number -->
+                        <div class="datareg-car-card__meta">
+                            <span th:text="'Vogn nr.: ' + ${lease.vehicleNo}">Vogn nr.: %</span>
+                        </div>
 
-                    <!-- First line: brand and model -->
-                    <div class="datareg-car-card__title"
-                         th:text="${car.brand + ' ' + car.model}">
-                        Brand: % Model: %
                     </div>
 
-                    <!-- Second line: Stålpris and Vogn nr -->
-                    <div class="datareg-car-card__meta">
-                        <span th:text="'Vogn nr.: ' + ${car.vehicleNo}">Vogn nr.: %</span>
+                    <!-- actions -->
+                    <div class="datareg-car-card__actions">
+
+                        <!-- thin square date box -->
+                        <span class="date-box" th:text="'Forventet Retur: ' + ${#temporals.format(lease.endDate, 'dd-MM-yyyy')}">
+                    </span>
+
+                        <!-- button -->
+                        <a class="car-action-btn car-action-btn--primary"
+                           th:href="@{/workshop/updateStatus(carId=${lease.carId}, status='RETURNED')}">
+                            Returneret
+                        </a>
+
+
                     </div>
-                </div>
 
-                <!-- Forventet Dato Område -->
-                <div class="datareg-car-card__actions">
+                </article>
 
-                    <!-- getModel er en midertidlig replacement -->
-                    <a class="car-action-btn car-action-btn--primary"
-                       th:text="'Forventet Retur:+ ' + ${car.getModel()}">
-                    </a>
+            </section>
+        </article>
+    </section>
 
-                </div>
-            </article>
-
-        </section>
-    </article>
-</section>
 </main>
 </body>
 </html>
