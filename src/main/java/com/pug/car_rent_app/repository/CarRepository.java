@@ -51,18 +51,26 @@ public class CarRepository {
 
 
     public void updateCarStatus(int carId, CarStatus carStatus) {
-        String status = carStatus.name();
+        String statusCode = carStatus.name();
 
+        // Update cars table
         String sql = """
-                UPDATE cars
-                SET status_id = (
-                    SELECT id FROM car_statuses WHERE status_code = ?
-                )
-                WHERE id = ?;
-                """;
+        UPDATE cars
+        SET status_id = (
+            SELECT id FROM car_statuses WHERE status_code = ?
+        )
+        WHERE id = ?;
+    """;
+        template.update(sql, statusCode, carId);
 
-        template.update(sql, status, carId);
+        // Log history
+        String historySql = """
+        INSERT INTO car_status_histories(car_id, status_id, change_time)
+        VALUES (?, (SELECT id FROM car_statuses WHERE status_code = ?), NOW());
+    """;
+        template.update(historySql, carId, statusCode);
     }
+
 
 
 

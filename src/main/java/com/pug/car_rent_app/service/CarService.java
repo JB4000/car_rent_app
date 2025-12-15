@@ -44,12 +44,14 @@ public class CarService {
 
     public void updateCarStatus(int id, CarStatus carStatus) {
         carRepository.updateCarStatus(id, carStatus);
+
     }
 
     public List<Car> sortCarListBrand(List<Car> cars) {
         cars.sort(new CarsSortBrandComp());
         return cars;
     }
+
     public List<Car> getCarsReturned() {
 
         List<Car> allCars = carRepository.getAllCars();
@@ -63,9 +65,5 @@ public class CarService {
         return returnedCars;
 
     }
-
-
-
-
 
 }
