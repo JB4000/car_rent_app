@@ -1,128 +1,141 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="da">
 
 <head>
     <meta charset="UTF-8">
-    <title>Bilabonnement – Data-Registrering Main page</title>
+    <title>Bilabonnement – Data-Registrering Hovedside</title>
     <link rel="stylesheet" th:href="@{/css/style_adjusted.css}">
+    <style>
+        .centered-box-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .centered-box {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            width: 400px;
+        }
+
+        .centered-box h1 {
+            text-align: center;
+            color: #007bff;
+        }
+
+        input[type="number"],
+        textarea {
+            width: 100%;
+            padding: 5px;
+            margin: 5px 0 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        button {
+            padding: 10px;
+            width: 100%;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Simple square checkbox style */
+        .damage-box {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            margin: 10px 0;
+            gap: 10px;
+        }
+
+        .damage-box input[type="checkbox"] {
+            display: none;
+        }
+
+        .damage-box span {
+            display: inline-block;
+            width: 25px;
+            height: 25px;
+            border: 2px solid #007bff;
+            vertical-align: middle;
+            text-align: center;
+            line-height: 22px;
+            font-size: 16px;
+            color: #007bff;
+        }
+
+        .damage-box input[type="checkbox"]:checked + span::after {
+            content: "✔";
+        }
+    </style>
 </head>
 
-<style>/* Centered modern box wrapper */
-.centered-box-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh; /* full viewport height */
-    background: var(--ba-color-background-primary);
-    padding: var(--ba-spacing-lg);
-}
-
-/* The actual box */
-.centered-box {
-    background: var(--ba-color-background-cards);
-    border: 1px solid var(--ba-color-border-cards);
-    border-radius: var(--ba-radius-md);
-    padding: var(--ba-spacing-lg);
-    max-width: 500px;
-    width: 100%;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-}
-
-/* Box header/title */
-.centered-box h1 {
-    margin-top: 0;
-    margin-bottom: var(--ba-spacing-md);
-    font-size: 1.5rem;
-    text-align: center;
-    color: var(--ba-color-primary-blue);
-}
-
-/* Inputs styling inside the box */
-.centered-box input[type="number"],
-.centered-box textarea {
-    width: 100%;
-    padding: var(--ba-spacing-sm);
-    margin-bottom: var(--ba-spacing-md);
-    border: 1px solid var(--ba-color-border-cards);
-    border-radius: var(--ba-radius-sm);
-    font-family: var(--ba-font-family);
-}
-
-/* Buttons inside the box */
-.centered-box button {
-    display: block;
-    width: 100%;
-    padding: 0.75rem;
-    border-radius: var(--ba-radius-md);
-    border: 2px solid var(--ba-color-primary-blue);
-    background: var(--ba-color-primary-blue);
-    color: var(--ba-color-background-primary);
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
-}
-
-.centered-box button:hover {
-    background: var(--ba-color-background-cards);
-    color: var(--ba-color-primary-blue);
-}
-</style>
-
-<body class="datareg-page-page">
-<header th:replace="~{/fragments/header :: header}"></header>
-
+<body>
 <div class="centered-box-wrapper">
     <div class="centered-box">
 
-
-
-        <h1>Tilstands Rapport</h1>
+        <h1>Tilstandsrapport</h1>
 
         <form action="#" th:action="@{/condition_report/create}" th:object="${conditionReport}" method="post">
 
             <input type="hidden" th:field="*{id}"/>
 
-            <p><strong>Car:</strong> [[${car.brand}]] [[${car.model}]] ([[${car.licensePlate}]])</p>
+            <p><strong>Bil:</strong> [[${car.brand}]] [[${car.model}]] ([[${car.licensePlate}]])</p>
 
-            Km counter: <input type="number" th:field="*{km_counter}" /><br /><br />
+            Km tæller: <input type="number" th:field="*{km_counter}" /><br /><br />
 
             <label>Motor:</label><br/>
-            <input type="radio" th:field="*{motorCheck}" value="PASSED"/> Pass
-            <input type="radio" th:field="*{motorCheck}" value="FAILED"/> Fail
+            <input type="radio" th:field="*{motorCheck}" value="PASSED"/> Godkendt
+            <input type="radio" th:field="*{motorCheck}" value="FAILED"/> Ikke godkendt
             <br/><br/>
 
-            <label>Brakes:</label><br/>
-            <input type="radio" th:field="*{brakesCheck}" value="PASSED"/> Pass
-            <input type="radio" th:field="*{brakesCheck}" value="FAILED"/> Fail
+            <label>Bremsesystem:</label><br/>
+            <input type="radio" th:field="*{brakesCheck}" value="PASSED"/> Godkendt
+            <input type="radio" th:field="*{brakesCheck}" value="FAILED"/> Ikke godkendt
             <br/><br/>
 
-            <label>Exhaust:</label><br/>
-            <input type="radio" th:field="*{exhaustCheck}" value="PASSED"/> Pass
-            <input type="radio" th:field="*{exhaustCheck}" value="FAILED"/> Failed
+            <label>Udstødning:</label><br/>
+            <input type="radio" th:field="*{exhaustCheck}" value="PASSED"/> Godkendt
+            <input type="radio" th:field="*{exhaustCheck}" value="FAILED"/> Ikke godkendt
             <br/><br/>
 
-            <label>Steering:</label><br/>
-            <input type="radio" th:field="*{steeringCheck}" value="PASSED"/> Pass
-            <input type="radio" th:field="*{steeringCheck}" value="FAILED"/> Failed
+            <label>Styretøj:</label><br/>
+            <input type="radio" th:field="*{steeringCheck}" value="PASSED"/> Godkendt
+            <input type="radio" th:field="*{steeringCheck}" value="FAILED"/> Ikke godkendt
             <br/><br/>
 
-            <label>Undercarriage:</label><br/>
-            <input type="radio" th:field="*{undercarriageCheck}" value="PASSED"/> Pass
-            <input type="radio" th:field="*{undercarriageCheck}" value="FAILED"/> Failed
+            <label>Undervogn:</label><br/>
+            <input type="radio" th:field="*{undercarriageCheck}" value="PASSED"/> Godkendt
+            <input type="radio" th:field="*{undercarriageCheck}" value="FAILED"/> Ikke godkendt
             <br/><br/>
 
-            Comment: <br/>
+            Kommentar: <br/>
             <textarea th:field="*{comment}"></textarea><br /><br />
 
             <input type="hidden" th:field="*{dateTimeCreated}" />
             <input type="hidden" th:field="*{done_by_id}" />
             <input type="hidden" th:field="*{return_id}" />
 
-            <label>
-                <input type="checkbox" /> Bil har skader
+            <!-- Clickable square label for "save and add damages" -->
+            <label class="damage-box">
+                <input type="checkbox" name="goToDamage" value="true" />
+                <span></span>
+                Tilføj skader
             </label>
 
-            <button type="submit">Save Report</button>
+            <button type="submit">Gem rapport</button>
 
         </form>
     </div>

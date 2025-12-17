@@ -38,6 +38,7 @@ public class ConditionReportRepository {
         List<ConditionReport> results = template.query(sql, new ConditionReportRowMapper(), conditionReportId);
         return results.isEmpty() ? null : results.getFirst();
     }
+
     public void insertConditionReport(ConditionReport report) {
         String sql = """
         INSERT INTO condition_reports
@@ -61,6 +62,22 @@ public class ConditionReportRepository {
         );
     }
 
+    public Integer findLatestConditionReportIdByReturnId(int returnId) {
+        String sql = """
+            SELECT id
+            FROM condition_reports
+            WHERE return_id = ?
+            ORDER BY date_created DESC
+            LIMIT 1
+        """;
+
+        List<Integer> results = template.query(
+                sql,
+                (rs, rowNum) -> rs.getInt("id"),
+                returnId
+        );
+        return results.getFirst();
+    }
 }
 
 

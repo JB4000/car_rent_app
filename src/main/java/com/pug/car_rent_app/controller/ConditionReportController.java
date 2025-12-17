@@ -1,6 +1,7 @@
 package com.pug.car_rent_app.controller;
 
 import com.pug.car_rent_app.model.Car;
+import com.pug.car_rent_app.model.CarStatus;
 import com.pug.car_rent_app.model.condition_report.ConditionReport;
 import com.pug.car_rent_app.service.CarService;
 import com.pug.car_rent_app.service.ConditionReportService;
@@ -43,8 +44,27 @@ public class ConditionReportController {
     public String handleCreate(
             @ModelAttribute("conditionReport") ConditionReport conditionReport) {
 
+        // Insert the condition report
         conditionReportService.insertConditionReport(conditionReport);
+
+        // Update the car status to READY_FOR_SALE
+        carService.updateCarStatus(conditionReport.getReturn_id(), CarStatus.READY_FOR_SALE);
 
         return "redirect:/workshop";
     }
+
+    @PostMapping(value = "/create", params = "goToDamage")
+    public String handleCreateAndGoToDamage(
+            @ModelAttribute("conditionReport") ConditionReport conditionReport) {
+
+        // Insert the condition report
+        conditionReportService.insertConditionReport(conditionReport);
+
+        // Update the car status to READY_FOR_SALE
+        carService.updateCarStatus(conditionReport.getReturn_id(), CarStatus.READY_FOR_SALE);
+
+        // Redirect to damage report page
+        return "redirect:/condition_report/damage?carId=" + conditionReport.getReturn_id();
+    }
+
 }
