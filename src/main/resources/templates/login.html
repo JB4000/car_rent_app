@@ -17,7 +17,7 @@
 
         /* login container wrapper */
         .login-container {
-            background: var(--ba-color-background-cards);
+
             border: 1px solid var(--ba-color-border-cards);
             border-radius: var(--ba-radius-md);
             padding: 2rem;
@@ -74,7 +74,7 @@
 
     <!-- Login form -->
     <form th:action="@{/}" method="post">
-        <input type="text" name="username" placeholder="Brugernavn" required class="login-input"/>
+        <input type="text" name="username" placeholder="Bruugernavn" required class="login-input"/>
         <input type="password" name="password" placeholder="Password" required class="login-input"/>
         <button type="submit" class="login-button">Login</button>
     </form>
